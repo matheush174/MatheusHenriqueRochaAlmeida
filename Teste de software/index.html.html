@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <!-- CSS integrado -->
+    <style>
+        /* Estilo básico do corpo da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Estilo do título principal */
+        h1 {
+            color: #333;
+        }
+
+        /* Estilo do input e do botão */
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Estilo da lista de tarefas */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Tarefa marcada como completada */
+        li.completada {
+            text-decoration: line-through;
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        /* Botão de remover tarefa */
+        li button {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        li button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Tarefas</h1>
+
+    <input type="text" id="tarefaInput" placeholder="Adicionar nova tarefa">
+    <button onclick="adicionarTarefa()">Adicionar Tarefa</button>
+
+    <ul id="listaTarefas"></ul>
+
+    <!-- JavaScript integrado -->
+    <script>
+        function adicionarTarefa() {
+            var tarefaInput = document.getElementById('tarefaInput');
+            var tarefaTexto = tarefaInput.value.trim();
+
+            if (tarefaTexto !== "") {
+                var listaTarefas = document.getElementById('listaTarefas');
+
+                var li = document.createElement('li');
+                li.textContent = tarefaTexto;
+
+                // Adicionando botão de remover
+                var botaoRemover = document.createElement('button');
+                botaoRemover.textContent = "Remover";
+                botaoRemover.onclick = function () {
+                    listaTarefas.removeChild(li);
+                };
+
+                // Adicionando evento de marcar como completada
+                li.onclick = function () {
+                    li.classList.toggle('completada');
+                };
+
+                li.appendChild(botaoRemover);
+                listaTarefas.appendChild(li);
+
+                tarefaInput.value = ""; // Limpa o campo de input
+            } else {
+                alert("Por favor, digite uma tarefa.");
+            }
+        }
+
+        // Teste automático com 3 tarefas adicionadas
+        window.onload = function() {
+            var tarefasTeste = ["Tarefa 1", "Tarefa 2", "Tarefa 3"];
+            for (var i = 0; i < tarefasTeste.length; i++) {
+                document.getElementById('tarefaInput').value = tarefasTeste[i];
+                adicionarTarefa();
+            }
+        };
+    </script>
+</body>
+</html>
